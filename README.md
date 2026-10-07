@@ -1,6 +1,6 @@
 # Landing de nuestra boda 💍
 
-Boda el **30 de octubre de 2027** en la **Hacienda Majaloba**.
+Boda el **30 de octubre de 2027** en la **Hacienda Majaloba** (Ctra. Sevilla – La Rinconada, km 6, La Rinconada, Sevilla).
 
 Web estática (HTML + CSS + JS, sin dependencias). Para verla, abre `index.html` en el navegador
 o publícala gratis con GitHub Pages (Settings → Pages → rama `main`, carpeta `/`).
