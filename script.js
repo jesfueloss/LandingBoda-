@@ -1,12 +1,12 @@
 // ===== CONFIGURACIÓN: edita aquí vuestros datos =====
 const CONFIG = {
-  novio1: 'Nombre',
-  novio2: 'Nombre',
+  novio1: 'Cristiana',
+  novio2: 'Jesús',
   fecha: '2027-10-30T17:30:00+02:00', // hora de la ceremonia (horario de verano en España hasta el 31/10/2027)
   lugar: 'Hacienda Majaloba',
   whatsapp: '',      // con prefijo y sin espacios, p. ej. '34600111222'
   email: '',         // p. ej. 'nosotros@ejemplo.com'
-  iban: 'ES00 0000 0000 0000 0000 0000',
+  iban: 'ES90 2100 9715 8302 0074 7765',
   // Opcional: URL de Formspree / Getform / similar para guardar las confirmaciones.
   // Si se deja vacío, el formulario abre WhatsApp (o el email) con la respuesta ya escrita.
   rsvpEndpoint: '',
@@ -81,13 +81,20 @@ $('#add-calendar').addEventListener('click', () => {
 
 // Copiar IBAN
 $('#copy-iban').addEventListener('click', async e => {
+  const iban = CONFIG.iban.replace(/\s/g, '');
   try {
-    await navigator.clipboard.writeText(CONFIG.iban.replace(/\s/g, ''));
-    e.target.textContent = '¡Copiado!';
+    await navigator.clipboard.writeText(iban);
+    e.target.textContent = '¡Copiado! ✓';
   } catch {
-    e.target.textContent = 'Cópialo a mano';
+    // Alternativa para navegadores sin API de portapapeles
+    const tmp = Object.assign(document.createElement('textarea'), { value: iban });
+    document.body.append(tmp);
+    tmp.select();
+    const ok = document.execCommand('copy');
+    tmp.remove();
+    e.target.textContent = ok ? '¡Copiado! ✓' : 'Mantén pulsado el número para copiarlo';
   }
-  setTimeout(() => (e.target.textContent = 'Copiar'), 2000);
+  setTimeout(() => (e.target.textContent = 'Copiar número de cuenta'), 2000);
 });
 
 // RSVP
