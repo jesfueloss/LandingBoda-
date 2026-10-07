@@ -7,7 +7,8 @@ const CONFIG = {
   whatsapp: '',      // con prefijo y sin espacios, p. ej. '34600111222'
   email: '',         // p. ej. 'nosotros@ejemplo.com'
   iban: 'ES90 2100 9715 8302 0074 7765',
-  // Opcional: URL de Formspree / Getform / similar para guardar las confirmaciones.
+  // URL de la aplicación web de Google Apps Script (termina en /exec) que guarda
+  // las confirmaciones en la hoja de Google. Ver google-apps-script/LEEME.md.
   // Si se deja vacío, el formulario abre WhatsApp (o el email) con la respuesta ya escrita.
   rsvpEndpoint: '',
 };
@@ -105,18 +106,23 @@ $('#rsvp-form').addEventListener('submit', async e => {
   const data = Object.fromEntries(new FormData(form));
 
   if (CONFIG.rsvpEndpoint) {
+    const button = $('button[type="submit"]', form);
+    button.disabled = true;
     status.textContent = 'Enviando...';
     try {
-      const res = await fetch(CONFIG.rsvpEndpoint, {
+      // Google Apps Script no permite leer la respuesta desde otra web (CORS),
+      // así que se envía en modo "no-cors": si la petición sale, la fila se guarda.
+      await fetch(CONFIG.rsvpEndpoint, {
         method: 'POST',
-        headers: { Accept: 'application/json' },
-        body: new FormData(form),
+        mode: 'no-cors',
+        body: new URLSearchParams(data),
       });
-      if (!res.ok) throw new Error(res.status);
       form.reset();
       status.textContent = '¡Gracias! Hemos recibido tu confirmación 💛';
     } catch {
-      status.textContent = 'Ups, algo ha fallado. Inténtalo de nuevo o escríbenos.';
+      status.textContent = 'No se ha podido enviar. Revisa tu conexión e inténtalo de nuevo.';
+    } finally {
+      button.disabled = false;
     }
     return;
   }

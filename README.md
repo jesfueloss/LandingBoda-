@@ -13,8 +13,8 @@ suba a esa rama se publicará solo.
 
 ## Personalizar
 
-- **`script.js` → `CONFIG`**: nombres, WhatsApp, email, IBAN y (opcional) un endpoint de
-  Formspree/Getform para guardar las confirmaciones.
+- **`script.js` → `CONFIG`**: nombres, WhatsApp, email, IBAN y `rsvpEndpoint`, la URL que guarda
+  las confirmaciones en Google Sheets (ver [`google-apps-script/LEEME.md`](google-apps-script/LEEME.md)).
 - **`index.html`**: textos de la historia, horarios, hoteles, FAQ, fecha límite de RSVP.
 - **`assets/img/`**: fotos. El GIF del fotomatón se sirve también como `fotomaton.mp4`
   (400 KB frente a 6,5 MB) para que la web cargue rápido en el móvil.
