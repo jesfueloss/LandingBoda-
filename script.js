@@ -2,7 +2,7 @@
 const CONFIG = {
   novio1: 'Cristina',
   novio2: 'Jesús',
-  fecha: '2027-10-30T17:30:00+02:00', // hora de la ceremonia (horario de verano en España hasta el 31/10/2027)
+  fecha: '2027-10-30T13:00:00+02:00', // hora de la ceremonia (horario de verano en España hasta el 31/10/2027)
   lugar: 'Hacienda Majaloba, Ctra. Sevilla-La Rinconada km 6, 41300 La Rinconada (Sevilla)',
   whatsapp: '',      // con prefijo y sin espacios, p. ej. '34600111222'
   email: '',         // p. ej. 'nosotros@ejemplo.com'
@@ -66,11 +66,11 @@ $('#add-calendar').addEventListener('click', () => {
     'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Boda//ES', 'BEGIN:VEVENT',
     'UID:boda-20271030@majaloba',
     'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z',
-    'DTSTART:20271030T153000Z',
-    'DTEND:20271031T020000Z',
+    'DTSTART:20271030T110000Z',
+    'DTEND:20271030T203000Z',
     `SUMMARY:Boda de ${CONFIG.novio1} y ${CONFIG.novio2}`,
     `LOCATION:${CONFIG.lugar.replace(/,/g, '\\,')}`,
-    'DESCRIPTION:¡Nos casamos! Ceremonia a las 17:30.',
+    'DESCRIPTION:¡Nos casamos! Ceremonia a las 13:00.',
     'END:VEVENT', 'END:VCALENDAR',
   ].join('\r\n');
   const a = document.createElement('a');
