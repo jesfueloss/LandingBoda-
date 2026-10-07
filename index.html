@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nuestra Boda · 30.10.2027 · Hacienda Majaloba</title>
+  <meta name="description" content="Nos casamos el 30 de octubre de 2027 en la Hacienda Majaloba. Toda la información de la boda: horarios, ubicación, alojamiento, confirmación de asistencia y más.">
+  <meta property="og:title" content="¡Nos casamos! · 30.10.2027">
+  <meta property="og:description" content="Hacienda Majaloba · 30 de octubre de 2027">
+  <meta property="og:image" content="assets/img/atardecer.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- NAVEGACIÓN -->
+  <header class="nav" id="nav">
+    <a href="#inicio" class="nav__logo">N &amp; N</a>
+    <button class="nav__toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+    <nav class="nav__links">
+      <a href="#historia">Historia</a>
+      <a href="#detalles">El día</a>
+      <a href="#programa">Programa</a>
+      <a href="#ubicacion">Ubicación</a>
+      <a href="#alojamiento">Alojamiento</a>
+      <a href="#regalos">Regalos</a>
+      <a href="#faq">FAQ</a>
+      <a href="#rsvp" class="nav__cta">Confirmar</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero__overlay"></div>
+    <div class="hero__content reveal">
+      <p class="hero__pre">¡Nos casamos!</p>
+      <h1 class="hero__names"><span class="js-novio1">Nombre</span> <span class="amp">&amp;</span> <span class="js-novio2">Nombre</span></h1>
+      <p class="hero__date">30 · Octubre · 2027</p>
+      <p class="hero__place">Hacienda Majaloba</p>
+
+      <div class="countdown" id="countdown" aria-live="polite">
+        <div><span id="cd-days">--</span><small>días</small></div>
+        <div><span id="cd-hours">--</span><small>horas</small></div>
+        <div><span id="cd-mins">--</span><small>min</small></div>
+        <div><span id="cd-secs">--</span><small>seg</small></div>
+      </div>
+
+      <div class="hero__actions">
+        <a href="#rsvp" class="btn btn--light">Confirmar asistencia</a>
+        <button class="btn btn--ghost" id="add-calendar">Añadir al calendario</button>
+      </div>
+    </div>
+    <a href="#historia" class="hero__scroll" aria-label="Bajar">⌄</a>
+  </section>
+
+  <!-- HISTORIA + GIF -->
+  <section class="section historia" id="historia">
+    <div class="container historia__grid">
+      <div class="historia__media reveal">
+        <!-- El GIF del fotomatón: se sirve como vídeo (mucho más ligero) con el GIF original como alternativa -->
+        <video class="fotomaton" autoplay loop muted playsinline poster="assets/img/fotomaton.gif">
+          <source src="assets/img/fotomaton.mp4" type="video/mp4">
+          <img src="assets/img/fotomaton.gif" alt="Tira de fotomatón de la pareja">
+        </video>
+      </div>
+      <div class="historia__text reveal">
+        <p class="eyebrow">Nuestra historia</p>
+        <h2>De un fotomatón<br>a un «sí, quiero»</h2>
+        <p>Entre risas, besos robados y muchas aventuras, hemos llegado hasta aquí. Después de tantos momentos compartidos, queremos dar el paso más bonito rodeados de las personas que más queremos.</p>
+        <p>Y no se nos ocurre mejor lugar que la <strong>Hacienda Majaloba</strong> para celebrarlo con vosotros.</p>
+        <ul class="timeline">
+          <li><span>20XX</span> Nos conocimos</li>
+          <li><span>20XX</span> Primera aventura juntos</li>
+          <li><span>20XX</span> La pedida</li>
+          <li><span>2027</span> ¡Nos casamos!</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOTO ATARDECER -->
+  <section class="parallax" aria-hidden="true">
+    <div class="parallax__quote reveal">
+      <p>«Lo mejor de la vida es tenerte enfrente»</p>
+    </div>
+  </section>
+
+  <!-- DETALLES -->
+  <section class="section" id="detalles">
+    <div class="container">
+      <p class="eyebrow center">El gran día</p>
+      <h2 class="center">Sábado, 30 de octubre de 2027</h2>
+      <div class="cards">
+        <article class="card reveal">
+          <div class="card__icon">💍</div>
+          <h3>Ceremonia</h3>
+          <p class="card__time">17:30 h</p>
+          <p>Hacienda Majaloba. Os rogamos llegar 30 minutos antes.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card__icon">🥂</div>
+          <h3>Cóctel</h3>
+          <p class="card__time">18:30 h</p>
+          <p>En los jardines de la hacienda, al caer la tarde.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card__icon">🍽️</div>
+          <h3>Banquete</h3>
+          <p class="card__time">20:30 h</p>
+          <p>Cena, brindis y alguna sorpresa que otra.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card__icon">🎶</div>
+          <h3>Fiesta</h3>
+          <p class="card__time">23:30 h</p>
+          <p>¡A bailar hasta que el cuerpo aguante!</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMA / DRESS CODE -->
+  <section class="section section--alt" id="programa">
+    <div class="container two-cols">
+      <div class="reveal">
+        <p class="eyebrow">Programa</p>
+        <h2>Cómo será el día</h2>
+        <ol class="program">
+          <li><time>17:00</time> Llegada de invitados</li>
+          <li><time>17:30</time> Ceremonia</li>
+          <li><time>18:30</time> Cóctel de bienvenida</li>
+          <li><time>20:30</time> Banquete</li>
+          <li><time>23:30</time> Primer baile y barra libre</li>
+          <li><time>04:00</time> Recena y fin de fiesta</li>
+        </ol>
+      </div>
+      <div class="reveal">
+        <p class="eyebrow">Dress code</p>
+        <h2>Formal de otoño</h2>
+        <p>Será finales de octubre: os recomendamos llevar algo de abrigo para la noche y calzado cómodo para el jardín (¡ojo con los tacones finos en el césped!).</p>
+        <div class="palette" aria-label="Paleta de colores sugerida">
+          <span style="--c:#8c3b2a" title="Terracota"></span>
+          <span style="--c:#c8643b" title="Teja"></span>
+          <span style="--c:#d9a066" title="Ocre"></span>
+          <span style="--c:#6b705c" title="Oliva"></span>
+          <span style="--c:#2f3e57" title="Azul noche"></span>
+        </div>
+        <p class="small">Paleta orientativa. Solo os pedimos evitar el blanco 🤍</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- UBICACIÓN -->
+  <section class="section" id="ubicacion">
+    <div class="container">
+      <p class="eyebrow center">Ubicación</p>
+      <h2 class="center">Hacienda Majaloba</h2>
+      <div class="map reveal">
+        <iframe title="Mapa Hacienda Majaloba" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Hacienda%20Majaloba&z=13&output=embed"></iframe>
+      </div>
+      <div class="cards cards--3">
+        <article class="card reveal">
+          <h3>🚗 En coche</h3>
+          <p>La hacienda dispone de aparcamiento gratuito para invitados.</p>
+          <a class="btn btn--small" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Hacienda+Majaloba">Cómo llegar</a>
+        </article>
+        <article class="card reveal">
+          <h3>🚌 Autobús</h3>
+          <p>Pondremos autobús de ida y vuelta. Indícalo en el formulario de confirmación.</p>
+        </article>
+        <article class="card reveal">
+          <h3>🚕 Taxi</h3>
+          <p>Recomendamos reservar con antelación para la vuelta de madrugada.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALOJAMIENTO -->
+  <section class="section section--alt" id="alojamiento">
+    <div class="container">
+      <p class="eyebrow center">¿Vienes de fuera?</p>
+      <h2 class="center">Alojamiento recomendado</h2>
+      <div class="cards cards--3">
+        <article class="card reveal">
+          <h3>Hotel 1</h3>
+          <p>A X km de la hacienda. Código de descuento: <strong>BODA2027</strong></p>
+          <a class="btn btn--small" href="#" target="_blank" rel="noopener">Reservar</a>
+        </article>
+        <article class="card reveal">
+          <h3>Hotel 2</h3>
+          <p>A X km. Ideal para familias.</p>
+          <a class="btn btn--small" href="#" target="_blank" rel="noopener">Reservar</a>
+        </article>
+        <article class="card reveal">
+          <h3>Casa rural</h3>
+          <p>Perfecta para grupos de amigos.</p>
+          <a class="btn btn--small" href="#" target="_blank" rel="noopener">Reservar</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERÍA -->
+  <section class="section" id="galeria">
+    <div class="container">
+      <p class="eyebrow center">Galería</p>
+      <h2 class="center">Algunos de nuestros momentos</h2>
+      <div class="gallery">
+        <figure class="reveal"><img src="assets/img/atardecer.jpg" alt="La pareja cenando junto al mar al atardecer" loading="lazy"></figure>
+        <figure class="reveal"><video autoplay loop muted playsinline><source src="assets/img/fotomaton.mp4" type="video/mp4"></video></figure>
+      </div>
+      <p class="center small">¿Tienes fotos con nosotros? ¡Compártelas el día de la boda con <strong>#BodaMajaloba2027</strong>!</p>
+    </div>
+  </section>
+
+  <!-- REGALOS -->
+  <section class="section section--alt" id="regalos">
+    <div class="container narrow center reveal">
+      <p class="eyebrow">Regalos</p>
+      <h2>Vuestra presencia es nuestro mejor regalo</h2>
+      <p>Pero si además queréis ayudarnos con nuestra luna de miel, aquí tenéis nuestro número de cuenta:</p>
+      <div class="iban">
+        <code id="iban">ES00 0000 0000 0000 0000 0000</code>
+        <button class="btn btn--small" id="copy-iban">Copiar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section class="section rsvp" id="rsvp">
+    <div class="container narrow">
+      <p class="eyebrow center">RSVP</p>
+      <h2 class="center">¿Nos acompañas?</h2>
+      <p class="center">Por favor, confírmanos tu asistencia antes del <strong>1 de septiembre de 2027</strong>.</p>
+      <form class="form reveal" id="rsvp-form">
+        <label>Nombre y apellidos
+          <input type="text" name="nombre" required>
+        </label>
+        <label>¿Asistirás?
+          <select name="asistencia" required>
+            <option value="">Selecciona una opción</option>
+            <option>¡Sí, allí estaré!</option>
+            <option>No podré ir, lo siento</option>
+          </select>
+        </label>
+        <div class="form__row">
+          <label>Nº de acompañantes
+            <input type="number" name="acompanantes" min="0" max="10" value="0">
+          </label>
+          <label>¿Usarás el autobús?
+            <select name="autobus">
+              <option>No</option>
+              <option>Sí</option>
+            </select>
+          </label>
+        </div>
+        <label>Alergias o intolerancias
+          <input type="text" name="alergias" placeholder="Vegetariano, celíaco, alergia a...">
+        </label>
+        <label>Canción que no puede faltar 🎵
+          <input type="text" name="cancion">
+        </label>
+        <label>Mensaje para los novios
+          <textarea name="mensaje" rows="3"></textarea>
+        </label>
+        <button type="submit" class="btn">Enviar confirmación</button>
+        <p class="form__status" id="rsvp-status" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section--alt" id="faq">
+    <div class="container narrow">
+      <p class="eyebrow center">Preguntas frecuentes</p>
+      <h2 class="center">Todo lo que necesitas saber</h2>
+      <details class="reveal"><summary>¿Pueden venir niños?</summary><p>¡Claro! Indícanos cuántos vienen en el formulario para preparar menú infantil.</p></details>
+      <details class="reveal"><summary>¿La ceremonia es al aire libre?</summary><p>Sí, si el tiempo lo permite. Tenemos plan B bajo techo por si acaso.</p></details>
+      <details class="reveal"><summary>¿Hasta qué hora dura la fiesta?</summary><p>Hasta las 4:00 aprox. Habrá autobús de vuelta en dos turnos.</p></details>
+      <details class="reveal"><summary>¿Puedo llevar acompañante?</summary><p>Si tu invitación lo indica, sí. Ante la duda, pregúntanos.</p></details>
+      <details class="reveal"><summary>¿Con quién contacto si tengo dudas?</summary><p>Escríbenos por WhatsApp o email (ver abajo) y te respondemos encantados.</p></details>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p class="footer__names"><span class="js-novio1">Nombre</span> &amp; <span class="js-novio2">Nombre</span></p>
+    <p>30.10.2027 · Hacienda Majaloba</p>
+    <p class="footer__contact">
+      <a href="#" id="whatsapp-link" target="_blank" rel="noopener">WhatsApp</a> ·
+      <a href="#" id="email-link">Email</a>
+    </p>
+    <p class="small">Hecho con ❤️ para nuestro gran día</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

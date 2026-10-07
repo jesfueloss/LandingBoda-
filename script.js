@@ -1,0 +1,137 @@
+// ===== CONFIGURACIÓN: edita aquí vuestros datos =====
+const CONFIG = {
+  novio1: 'Nombre',
+  novio2: 'Nombre',
+  fecha: '2027-10-30T17:30:00+02:00', // hora de la ceremonia (horario de verano en España hasta el 31/10/2027)
+  lugar: 'Hacienda Majaloba',
+  whatsapp: '',      // con prefijo y sin espacios, p. ej. '34600111222'
+  email: '',         // p. ej. 'nosotros@ejemplo.com'
+  iban: 'ES00 0000 0000 0000 0000 0000',
+  // Opcional: URL de Formspree / Getform / similar para guardar las confirmaciones.
+  // Si se deja vacío, el formulario abre WhatsApp (o el email) con la respuesta ya escrita.
+  rsvpEndpoint: '',
+};
+// ====================================================
+
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+
+// Nombres, contacto e IBAN
+$$('.js-novio1').forEach(el => (el.textContent = CONFIG.novio1));
+$$('.js-novio2').forEach(el => (el.textContent = CONFIG.novio2));
+$('.nav__logo').textContent = `${CONFIG.novio1[0]} & ${CONFIG.novio2[0]}`;
+$('#iban').textContent = CONFIG.iban;
+if (CONFIG.whatsapp) $('#whatsapp-link').href = `https://wa.me/${CONFIG.whatsapp}`;
+if (CONFIG.email) $('#email-link').href = `mailto:${CONFIG.email}`;
+
+// Navegación
+const nav = $('#nav');
+const links = $('.nav__links');
+const toggle = $('.nav__toggle');
+const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 60);
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+toggle.addEventListener('click', () => {
+  const open = links.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', open);
+});
+$$('a', links).forEach(a => a.addEventListener('click', () => {
+  links.classList.remove('open');
+  toggle.setAttribute('aria-expanded', 'false');
+}));
+
+// Cuenta atrás
+const target = new Date(CONFIG.fecha).getTime();
+const pad = n => String(n).padStart(2, '0');
+function tick() {
+  const diff = Math.max(0, target - Date.now());
+  $('#cd-days').textContent = Math.floor(diff / 86400000);
+  $('#cd-hours').textContent = pad(Math.floor(diff / 3600000) % 24);
+  $('#cd-mins').textContent = pad(Math.floor(diff / 60000) % 60);
+  $('#cd-secs').textContent = pad(Math.floor(diff / 1000) % 60);
+}
+tick();
+setInterval(tick, 1000);
+
+// Animaciones al hacer scroll
+const io = new IntersectionObserver(entries => entries.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+}), { threshold: 0.15 });
+$$('.reveal').forEach(el => io.observe(el));
+
+// Añadir al calendario (.ics compatible con Google, Apple y Outlook)
+$('#add-calendar').addEventListener('click', () => {
+  const ics = [
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Boda//ES', 'BEGIN:VEVENT',
+    'UID:boda-20271030@majaloba',
+    'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z',
+    'DTSTART:20271030T153000Z',
+    'DTEND:20271031T020000Z',
+    `SUMMARY:Boda de ${CONFIG.novio1} y ${CONFIG.novio2}`,
+    `LOCATION:${CONFIG.lugar}`,
+    'DESCRIPTION:¡Nos casamos! Ceremonia a las 17:30.',
+    'END:VEVENT', 'END:VCALENDAR',
+  ].join('\r\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
+  a.download = 'boda-30-10-2027.ics';
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+
+// Copiar IBAN
+$('#copy-iban').addEventListener('click', async e => {
+  try {
+    await navigator.clipboard.writeText(CONFIG.iban.replace(/\s/g, ''));
+    e.target.textContent = '¡Copiado!';
+  } catch {
+    e.target.textContent = 'Cópialo a mano';
+  }
+  setTimeout(() => (e.target.textContent = 'Copiar'), 2000);
+});
+
+// RSVP
+$('#rsvp-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const form = e.target;
+  const status = $('#rsvp-status');
+  const data = Object.fromEntries(new FormData(form));
+
+  if (CONFIG.rsvpEndpoint) {
+    status.textContent = 'Enviando...';
+    try {
+      const res = await fetch(CONFIG.rsvpEndpoint, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form),
+      });
+      if (!res.ok) throw new Error(res.status);
+      form.reset();
+      status.textContent = '¡Gracias! Hemos recibido tu confirmación 💛';
+    } catch {
+      status.textContent = 'Ups, algo ha fallado. Inténtalo de nuevo o escríbenos.';
+    }
+    return;
+  }
+
+  const text = [
+    'Confirmación boda 30/10/2027',
+    `Nombre: ${data.nombre}`,
+    `Asistencia: ${data.asistencia}`,
+    `Acompañantes: ${data.acompanantes}`,
+    `Autobús: ${data.autobus}`,
+    data.alergias && `Alergias: ${data.alergias}`,
+    data.cancion && `Canción: ${data.cancion}`,
+    data.mensaje && `Mensaje: ${data.mensaje}`,
+  ].filter(Boolean).join('\n');
+
+  if (CONFIG.whatsapp) {
+    window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(text)}`, '_blank');
+  } else if (CONFIG.email) {
+    location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent('Confirmación boda')}&body=${encodeURIComponent(text)}`;
+  } else {
+    status.textContent = 'Falta configurar el WhatsApp o email de los novios en script.js';
+    return;
+  }
+  status.textContent = '¡Gracias! Solo falta que envíes el mensaje 💛';
+});
