@@ -2,8 +2,14 @@
 
 Boda el **30 de octubre de 2027** en la **Hacienda Majaloba** (Ctra. Sevilla – La Rinconada, km 6, La Rinconada, Sevilla).
 
-Web estática (HTML + CSS + JS, sin dependencias). Para verla, abre `index.html` en el navegador
-o publícala gratis con GitHub Pages (Settings → Pages → rama `main`, carpeta `/`).
+Web estática (HTML + CSS + JS, sin dependencias).
+
+**Dirección pública:** https://jesfueloss.github.io/LandingBoda-/
+
+Para activarla (una sola vez): en GitHub, *Settings → Pages → Build and deployment →
+Source: Deploy from a branch*, elige la rama `claude/wedding-landing-page-9aedzr` y la carpeta
+`/ (root)`, y pulsa *Save*. En uno o dos minutos la web estará en línea y cada cambio que se
+suba a esa rama se publicará solo.
 
 ## Personalizar
 
