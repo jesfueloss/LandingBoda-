@@ -1,6 +1,6 @@
 // ===== CONFIGURACIÓN: edita aquí vuestros datos =====
 const CONFIG = {
-  novio1: 'Cristiana',
+  novio1: 'Cristina',
   novio2: 'Jesús',
   fecha: '2027-10-30T17:30:00+02:00', // hora de la ceremonia (horario de verano en España hasta el 31/10/2027)
   lugar: 'Hacienda Majaloba, Ctra. Sevilla-La Rinconada km 6, 41300 La Rinconada (Sevilla)',
