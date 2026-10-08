@@ -10,7 +10,7 @@ const CONFIG = {
   // URL de la aplicación web de Google Apps Script (termina en /exec) que guarda
   // las confirmaciones en la hoja de Google. Ver google-apps-script/LEEME.md.
   // Si se deja vacío, el formulario abre WhatsApp (o el email) con la respuesta ya escrita.
-  rsvpEndpoint: '',
+  rsvpEndpoint: 'https://script.google.com/macros/s/AKfycbyYPQJRUXt9CnKS7X5C8LznMSf2tmMzHi2BHq1bCwdyhpxZUwQMbltzqyZ3OsbMowXX/exec',
 };
 // ====================================================
 
