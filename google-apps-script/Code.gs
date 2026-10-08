@@ -3,6 +3,13 @@
 const SHEET_ID = '1dTznEkunIY7e4LwJi13i29WhM0e-Gbnsxhj-uUVZDCI';
 const CAMPOS = ['nombre', 'asistencia', 'acompanantes', 'autobus', 'alergias', 'cancion', 'mensaje'];
 
+// Al abrir la URL /exec en el navegador debe aparecer este mensaje.
+// Si en su lugar pide iniciar sesión, el acceso no está en "Cualquier usuario".
+function doGet() {
+  const filas = SpreadsheetApp.openById(SHEET_ID).getSheets()[0].getLastRow() - 1;
+  return ContentService.createTextOutput('Funciona ✅ Confirmaciones guardadas: ' + filas);
+}
+
 function doPost(e) {
   const p = (e && e.parameter) || {};
   if (!p.nombre) return respuesta({ ok: false, error: 'Falta el nombre' });
