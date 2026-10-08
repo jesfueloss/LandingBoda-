@@ -112,11 +112,16 @@ $('#rsvp-form').addEventListener('submit', async e => {
     try {
       // Google Apps Script no permite leer la respuesta desde otra web (CORS),
       // así que se envía en modo "no-cors": si la petición sale, la fila se guarda.
-      await fetch(CONFIG.rsvpEndpoint, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: new URLSearchParams(data),
-      });
+      try {
+        await fetch(CONFIG.rsvpEndpoint, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: new URLSearchParams(data),
+        });
+      } catch {
+        // Si el navegador bloquea fetch, se envía como un formulario clásico a un iframe oculto
+        await postViaIframe(CONFIG.rsvpEndpoint, data);
+      }
       form.reset();
       status.textContent = '¡Gracias! Hemos recibido tu confirmación 💛';
     } catch {
@@ -148,3 +153,17 @@ $('#rsvp-form').addEventListener('submit', async e => {
   }
   status.textContent = '¡Gracias! Solo falta que envíes el mensaje 💛';
 });
+
+function postViaIframe(url, data) {
+  return new Promise((resolve, reject) => {
+    const name = 'rsvp-frame-' + Date.now();
+    const iframe = Object.assign(document.createElement('iframe'), { name, hidden: true });
+    const f = Object.assign(document.createElement('form'), { action: url, method: 'POST', target: name, hidden: true });
+    Object.entries(data).forEach(([k, v]) => f.append(Object.assign(document.createElement('input'), { type: 'hidden', name: k, value: v })));
+    const timer = setTimeout(() => { cleanup(); reject(new Error('timeout')); }, 15000);
+    const cleanup = () => { clearTimeout(timer); setTimeout(() => { iframe.remove(); f.remove(); }, 1000); };
+    iframe.addEventListener('load', () => { cleanup(); resolve(); });
+    document.body.append(iframe, f);
+    f.submit();
+  });
+}
