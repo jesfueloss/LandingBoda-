@@ -119,6 +119,27 @@ document.addEventListener('click', e => {
   if (alergiasDropdown.open && !alergiasDropdown.contains(e.target)) alergiasDropdown.open = false;
 });
 
+// Un campo de nombre por cada acompañante
+const acompInput = $('input[name="acompanantes"]');
+const acompBox = $('#acompanantes-nombres');
+function renderAcompanantes() {
+  const n = Math.max(0, Math.min(10, parseInt(acompInput.value, 10) || 0));
+  const previos = $$('input[name="acompanante_nombre"]', acompBox).map(i => i.value);
+  acompBox.hidden = n === 0;
+  acompBox.innerHTML = n ? '<p>Nombre y apellidos de tus acompañantes</p>' : '';
+  for (let i = 0; i < n; i++) {
+    const label = document.createElement('label');
+    label.textContent = `Acompañante ${i + 1}`;
+    const input = Object.assign(document.createElement('input'), {
+      type: 'text', name: 'acompanante_nombre', required: true, value: previos[i] || '',
+    });
+    input.id = `acompanante-${i + 1}`;
+    label.append(input);
+    acompBox.append(label);
+  }
+}
+acompInput.addEventListener('input', renderAcompanantes);
+
 // RSVP
 $('#rsvp-form').addEventListener('submit', async e => {
   e.preventDefault();
@@ -131,6 +152,11 @@ $('#rsvp-form').addEventListener('submit', async e => {
   const detalle = (data.alergias_detalle || '').trim();
   delete data.alergia_opcion;
   delete data.alergias_detalle;
+  // Los acompañantes se guardan junto al nombre del invitado, en la misma columna
+  const acompanantes = fd.getAll('acompanante_nombre').map(v => v.trim()).filter(Boolean);
+  delete data.acompanante_nombre;
+  data.nombre = data.nombre.trim();
+  if (acompanantes.length) data.nombre += ` (acompañantes: ${acompanantes.join(', ')})`;
   data.alergias = [opciones.join(', ') || (detalle ? 'Otra' : 'Ninguna'), detalle && `(${detalle})`].filter(Boolean).join(' ');
 
   if (CONFIG.rsvpEndpoint) {
@@ -152,6 +178,7 @@ $('#rsvp-form').addEventListener('submit', async e => {
       }
       form.reset();
       actualizarResumenAlergias();
+      renderAcompanantes();
       status.textContent = '¡Gracias! Hemos recibido tu confirmación 💛';
     } catch {
       status.textContent = 'No se ha podido enviar. Revisa tu conexión e inténtalo de nuevo.';
