@@ -265,8 +265,21 @@
             </select>
           </label>
         </div>
-        <label>Alergias o intolerancias
-          <input type="text" name="alergias" placeholder="Vegetariano, celíaco, alergia a...">
+        <fieldset class="checks">
+          <legend>Alergias o dieta especial</legend>
+          <div class="checks__grid">
+            <label class="check"><input type="checkbox" name="alergia_opcion" value="Ninguna"> Ninguna</label>
+            <label class="check"><input type="checkbox" name="alergia_opcion" value="Vegetariano"> Vegetariano</label>
+            <label class="check"><input type="checkbox" name="alergia_opcion" value="Vegano"> Vegano</label>
+            <label class="check"><input type="checkbox" name="alergia_opcion" value="Celíaco / sin gluten"> Celíaco / sin gluten</label>
+            <label class="check"><input type="checkbox" name="alergia_opcion" value="Sin lactosa"> Sin lactosa</label>
+            <label class="check"><input type="checkbox" name="alergia_opcion" value="Frutos secos"> Frutos secos</label>
+            <label class="check"><input type="checkbox" name="alergia_opcion" value="Marisco"> Marisco</label>
+            <label class="check"><input type="checkbox" name="alergia_opcion" value="Otra"> Otra</label>
+          </div>
+        </fieldset>
+        <label>Detalles de la alergia (opcional)
+          <input type="text" name="alergias_detalle" placeholder="Ej.: alergia a la piña, el acompañante es celíaco...">
         </label>
         <label>Canción que no puede faltar 🎵
           <input type="text" name="cancion">

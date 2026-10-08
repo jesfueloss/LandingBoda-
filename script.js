@@ -98,12 +98,27 @@ $('#copy-iban').addEventListener('click', async e => {
   setTimeout(() => (e.target.textContent = 'Copiar número de cuenta'), 2000);
 });
 
+// Alergias: "Ninguna" desmarca el resto y viceversa
+$$('input[name="alergia_opcion"]').forEach(cb => cb.addEventListener('change', () => {
+  if (!cb.checked) return;
+  $$('input[name="alergia_opcion"]').forEach(o => {
+    if (o !== cb && (cb.value === 'Ninguna' || o.value === 'Ninguna')) o.checked = false;
+  });
+}));
+
 // RSVP
 $('#rsvp-form').addEventListener('submit', async e => {
   e.preventDefault();
   const form = e.target;
   const status = $('#rsvp-status');
-  const data = Object.fromEntries(new FormData(form));
+  const fd = new FormData(form);
+  const data = Object.fromEntries(fd);
+  // Las casillas de alergias se envían juntas en una sola columna, p. ej. "Celíaco / sin gluten, Sin lactosa (detalle)"
+  const opciones = fd.getAll('alergia_opcion');
+  const detalle = (data.alergias_detalle || '').trim();
+  delete data.alergia_opcion;
+  delete data.alergias_detalle;
+  data.alergias = [opciones.join(', ') || (detalle ? 'Otra' : 'Ninguna'), detalle && `(${detalle})`].filter(Boolean).join(' ');
 
   if (CONFIG.rsvpEndpoint) {
     const button = $('button[type="submit"]', form);

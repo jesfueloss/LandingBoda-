@@ -112,6 +112,12 @@ p + p { margin-top: 1rem; }
 .form input, .form select, .form textarea { font: 300 1rem var(--sans); padding: .8rem 1rem; border: 1px solid #e3d6c8; border-radius: 10px; background: var(--crema); color: var(--texto); }
 .form input:focus, .form select:focus, .form textarea:focus { outline: 2px solid var(--terracota); border-color: transparent; }
 .form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+.checks { border: 0; display: grid; gap: .6rem; }
+.checks legend { font-size: .8rem; font-weight: 500; letter-spacing: .05em; margin-bottom: .6rem; }
+.checks__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .5rem; }
+.form .check { display: flex; align-items: center; gap: .5rem; font-weight: 300; font-size: .95rem; letter-spacing: 0; padding: .6rem .8rem; border: 1px solid #e3d6c8; border-radius: 10px; background: var(--crema); cursor: pointer; }
+.form .check:has(input:checked) { border-color: var(--terracota); background: #fff; }
+.form .check input { accent-color: var(--terracota); width: 1.1rem; height: 1.1rem; padding: 0; }
 .form__status { text-align: center; font-weight: 500; color: var(--terracota-dark); }
 
 /* FAQ */
