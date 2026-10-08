@@ -267,6 +267,8 @@
         </div>
         <fieldset class="checks">
           <legend>Alergias o dieta especial</legend>
+          <details class="dropdown" id="alergias-dropdown">
+            <summary><span id="alergias-resumen">Selecciona una o varias opciones</span></summary>
           <div class="checks__grid">
             <label class="check"><input type="checkbox" name="alergia_opcion" value="Ninguna"> Ninguna</label>
             <label class="check"><input type="checkbox" name="alergia_opcion" value="Vegetariano"> Vegetariano</label>
@@ -277,6 +279,7 @@
             <label class="check"><input type="checkbox" name="alergia_opcion" value="Marisco"> Marisco</label>
             <label class="check"><input type="checkbox" name="alergia_opcion" value="Otra"> Otra</label>
           </div>
+          </details>
         </fieldset>
         <label>Detalles de la alergia (opcional)
           <input type="text" name="alergias_detalle" placeholder="Ej.: alergia a la piña, el acompañante es celíaco...">

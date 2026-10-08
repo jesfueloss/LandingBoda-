@@ -99,12 +99,25 @@ $('#copy-iban').addEventListener('click', async e => {
 });
 
 // Alergias: "Ninguna" desmarca el resto y viceversa
-$$('input[name="alergia_opcion"]').forEach(cb => cb.addEventListener('change', () => {
-  if (!cb.checked) return;
-  $$('input[name="alergia_opcion"]').forEach(o => {
-    if (o !== cb && (cb.value === 'Ninguna' || o.value === 'Ninguna')) o.checked = false;
-  });
+const alergiaChecks = $$('input[name="alergia_opcion"]');
+const alergiasDropdown = $('#alergias-dropdown');
+function actualizarResumenAlergias() {
+  const elegidas = alergiaChecks.filter(o => o.checked).map(o => o.value);
+  $('#alergias-resumen').textContent = elegidas.join(', ') || 'Selecciona una o varias opciones';
+}
+alergiaChecks.forEach(cb => cb.addEventListener('change', () => {
+  if (cb.checked) {
+    alergiaChecks.forEach(o => {
+      if (o !== cb && (cb.value === 'Ninguna' || o.value === 'Ninguna')) o.checked = false;
+    });
+    if (cb.value === 'Ninguna') alergiasDropdown.open = false;
+  }
+  actualizarResumenAlergias();
 }));
+// Cierra el desplegable al pulsar fuera
+document.addEventListener('click', e => {
+  if (alergiasDropdown.open && !alergiasDropdown.contains(e.target)) alergiasDropdown.open = false;
+});
 
 // RSVP
 $('#rsvp-form').addEventListener('submit', async e => {
@@ -138,6 +151,7 @@ $('#rsvp-form').addEventListener('submit', async e => {
         await postViaIframe(CONFIG.rsvpEndpoint, data);
       }
       form.reset();
+      actualizarResumenAlergias();
       status.textContent = '¡Gracias! Hemos recibido tu confirmación 💛';
     } catch {
       status.textContent = 'No se ha podido enviar. Revisa tu conexión e inténtalo de nuevo.';
