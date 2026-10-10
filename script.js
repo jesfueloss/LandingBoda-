@@ -119,23 +119,39 @@ document.addEventListener('click', e => {
   if (alergiasDropdown.open && !alergiasDropdown.contains(e.target)) alergiasDropdown.open = false;
 });
 
-// Un campo de nombre por cada acompañante
+// Un campo de nombre por cada acompañante, con una casilla para indicar si es niño/a
 const acompInput = $('input[name="acompanantes"]');
 const acompBox = $('#acompanantes-nombres');
+function leerAcompanantes() {
+  return $$('.acomp__item', acompBox).map(item => ({
+    nombre: $('input[type="text"]', item).value.trim(),
+    nino: $('input[type="checkbox"]', item).checked,
+  }));
+}
 function renderAcompanantes() {
   const n = Math.max(0, Math.min(10, parseInt(acompInput.value, 10) || 0));
-  const previos = $$('input[name="acompanante_nombre"]', acompBox).map(i => i.value);
+  const previos = leerAcompanantes();
   acompBox.hidden = n === 0;
   acompBox.innerHTML = n ? '<p>Nombre y apellidos de tus acompañantes</p>' : '';
   for (let i = 0; i < n; i++) {
+    const item = document.createElement('div');
+    item.className = 'acomp__item';
     const label = document.createElement('label');
     label.textContent = `Acompañante ${i + 1}`;
     const input = Object.assign(document.createElement('input'), {
-      type: 'text', name: 'acompanante_nombre', required: true, value: previos[i] || '',
+      type: 'text', name: 'acompanante_nombre', required: true, value: previos[i]?.nombre || '',
     });
     input.id = `acompanante-${i + 1}`;
     label.append(input);
-    acompBox.append(label);
+    const nino = document.createElement('label');
+    nino.className = 'check';
+    const cb = Object.assign(document.createElement('input'), {
+      type: 'checkbox', name: 'acompanante_nino', checked: !!previos[i]?.nino,
+    });
+    cb.id = `acompanante-nino-${i + 1}`;
+    nino.append(cb, ' Es niño/a');
+    item.append(label, nino);
+    acompBox.append(item);
   }
 }
 acompInput.addEventListener('input', renderAcompanantes);
@@ -153,8 +169,12 @@ $('#rsvp-form').addEventListener('submit', async e => {
   delete data.alergia_opcion;
   delete data.alergias_detalle;
   // Los acompañantes se guardan junto al nombre del invitado, en la misma columna
-  const acompanantes = fd.getAll('acompanante_nombre').map(v => v.trim()).filter(Boolean);
+  // Los niños se marcan con "(niño/a)" para poder contarlos en la hoja
+  const acompanantes = leerAcompanantes()
+    .filter(a => a.nombre)
+    .map(a => (a.nino ? `${a.nombre} (niño/a)` : a.nombre));
   delete data.acompanante_nombre;
+  delete data.acompanante_nino;
   data.nombre = data.nombre.trim();
   if (acompanantes.length) data.nombre += ` (acompañantes: ${acompanantes.join(', ')})`;
   data.alergias = [opciones.join(', ') || (detalle ? 'Otra' : 'Ninguna'), detalle && `(${detalle})`].filter(Boolean).join(' ');
